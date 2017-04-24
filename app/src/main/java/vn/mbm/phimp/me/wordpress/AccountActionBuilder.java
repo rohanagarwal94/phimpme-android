@@ -13,8 +13,6 @@ import org.wordpress.android.fluxc.store.AccountStore.UpdateTokenPayload;
  */
 
 public final class AccountActionBuilder extends ActionBuilder {
-    public AccountActionBuilder() {
-    }
 
     public static Action<Void> newFetchAccountAction() {
         return generateNoPayloadAction(AccountAction.FETCH_ACCOUNT);

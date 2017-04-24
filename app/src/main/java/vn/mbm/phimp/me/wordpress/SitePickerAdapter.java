@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -35,18 +34,11 @@ import vn.mbm.phimp.me.R;
 
 public class SitePickerAdapter extends RecyclerView.Adapter<SitePickerAdapter.SiteViewHolder> {
 
-    interface OnSiteClickListener {
-        void onSiteClick(SiteRecord site);
-    }
+    // show recently picked first if there are at least this many blogs
+    private static final int RECENTLY_PICKED_THRESHOLD = 15;
 
-    interface OnSelectedCountChangedListener {
-        void onSelectedCountChanged(int numSelected);
-    }
-
-    interface OnDataLoadedListener {
-        void onBeforeLoad(boolean isEmpty);
-        void onAfterLoad();
-    }
+    @Inject AccountStore mAccountStore;
+    @Inject SiteStore mSiteStore;
 
     private final int mTextColorNormal;
     private final int mTextColorHidden;
@@ -68,15 +60,22 @@ public class SitePickerAdapter extends RecyclerView.Adapter<SitePickerAdapter.Si
     private String mLastSearch;
     private SiteList mAllSites;
 
+    interface OnSiteClickListener {
+        void onSiteClick(SiteRecord site);
+    }
+
+    interface OnSelectedCountChangedListener {
+        void onSelectedCountChanged(int numSelected);
+    }
+
+    interface OnDataLoadedListener {
+        void onBeforeLoad(boolean isEmpty);
+        void onAfterLoad();
+    }
+
     private OnSiteClickListener mSiteSelectedListener;
     private OnSelectedCountChangedListener mSelectedCountListener;
     private OnDataLoadedListener mDataLoadedListener;
-
-    // show recently picked first if there are at least this many blogs
-    private static final int RECENTLY_PICKED_THRESHOLD = 15;
-
-    @Inject AccountStore mAccountStore;
-    @Inject SiteStore mSiteStore;
 
     class SiteViewHolder extends RecyclerView.ViewHolder {
         private final ViewGroup layoutContainer;
@@ -324,27 +323,6 @@ public class SitePickerAdapter extends RecyclerView.Adapter<SitePickerAdapter.Si
         }
 
         return sites;
-    }
-
-
-    Set<SiteRecord> setVisibilityForSelectedSites(boolean makeVisible) {
-        SiteList sites = getSelectedSites();
-        Set<SiteRecord> siteRecordSet = new HashSet<>();
-        if (sites != null && sites.size() > 0) {
-            for (SiteRecord site: sites) {
-                int index = mAllSites.indexOfSite(site);
-                if (index > -1) {
-                    SiteRecord siteRecord = mAllSites.get(index);
-                    if (siteRecord.isHidden == makeVisible) {
-                        // add it to change set
-                        siteRecordSet.add(siteRecord);
-                    }
-                    siteRecord.isHidden = !makeVisible;
-                }
-            }
-        }
-        notifyDataSetChanged();
-        return siteRecordSet;
     }
 
     void loadSites() {

@@ -37,18 +37,6 @@ import vn.mbm.phimp.me.R;
  */
 
 public class WPNetworkImageView extends AppCompatImageView {
-    public enum ImageType {
-        NONE,
-        PHOTO,
-        PHOTO_ROUNDED,
-        BLAVATAR,
-        GONE_UNTIL_AVAILABLE,
-    }
-
-    public interface ImageLoadListener {
-        void onLoaded();
-        void onError();
-    }
 
     private ImageType mImageType = ImageType.NONE;
     private String mUrl;
@@ -61,6 +49,19 @@ public class WPNetworkImageView extends AppCompatImageView {
     private int mCropHeight;
 
     private static final HashSet<String> mUrlSkipList = new HashSet<>();
+
+    public enum ImageType {
+        NONE,
+        PHOTO,
+        PHOTO_ROUNDED,
+        BLAVATAR,
+        GONE_UNTIL_AVAILABLE,
+    }
+
+    public interface ImageLoadListener {
+        void onLoaded();
+        void onError();
+    }
 
     public WPNetworkImageView(Context context) {
         super(context);

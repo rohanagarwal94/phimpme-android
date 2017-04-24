@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.wordpress.android.fluxc.model.SiteModel;
-
 import vn.mbm.phimp.me.R;
 
 /**
@@ -24,10 +22,8 @@ public class AuthErrorDialogFragment extends DialogFragment {
 
     private int mMessageId = R.string.incorrect_credentials;
     private int mTitleId = R.string.connection_error;
-    private SiteModel mSite;
 
-    public void setArgs(int titleResourceId, int messageResourceId, SiteModel site) {
-        mSite = site;
+    public void setArgs(int titleResourceId, int messageResourceId) {
         if (titleResourceId != DEFAULT_RESOURCE_ID) {
             mTitleId = titleResourceId;
         } else {
@@ -45,7 +41,8 @@ public class AuthErrorDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setCancelable(true);
-        int style = DialogFragment.STYLE_NORMAL, theme = 0;
+        int style = DialogFragment.STYLE_NORMAL;
+        int theme = 0;
         setStyle(style, theme);
     }
 

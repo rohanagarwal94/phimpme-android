@@ -30,6 +30,14 @@ public class MediaDeleteService extends Service {
     public static final String SITE_KEY = "mediaSite";
     public static final String MEDIA_LIST_KEY = "mediaList";
 
+    private SiteModel mSite; // required for payloads
+    @Inject Dispatcher mDispatcher;
+    @Inject MediaStore mMediaStore;
+
+    private MediaModel mCurrentDelete;
+    private List<MediaModel> mDeleteQueue;
+    private List<MediaModel> mCompletedItems;
+
     public class MediaDeleteBinder extends Binder {
         public MediaDeleteService getService() {
             return MediaDeleteService.this;
@@ -42,14 +50,6 @@ public class MediaDeleteService extends Service {
     }
 
     private final IBinder mBinder = new MediaDeleteBinder();
-
-    private SiteModel mSite; // required for payloads
-    @Inject Dispatcher mDispatcher;
-    @Inject MediaStore mMediaStore;
-
-    private MediaModel mCurrentDelete;
-    private List<MediaModel> mDeleteQueue;
-    private List<MediaModel> mCompletedItems;
 
     @Override
     public void onCreate() {

@@ -60,6 +60,7 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
 
     private static final float SCALE_NORMAL = 1.0f;
     private static final float SCALE_SELECTED = .85f;
+    private static final int INVALID_POSITION = -1;
 
     public interface MediaGridAdapterCallback {
         void onAdapterFetchMoreData();
@@ -67,8 +68,6 @@ public class MediaGridAdapter extends RecyclerView.Adapter<MediaGridAdapter.Grid
         void onAdapterItemSelected(int position);
         void onAdapterSelectionCountChanged(int count);
     }
-
-    private static final int INVALID_POSITION = -1;
 
     public MediaGridAdapter(Context context, SiteModel site, ImageLoader imageLoader) {
         super();

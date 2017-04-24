@@ -39,7 +39,7 @@ public class AuthenticationDialogUtils {
 
         FragmentTransaction ft = activity.getFragmentManager().beginTransaction();
         AuthErrorDialogFragment authAlert = new AuthErrorDialogFragment();
-        authAlert.setArgs(titleResId, messageResId, site);
+        authAlert.setArgs(titleResId, messageResId);
         ft.add(authAlert, ALERT_TAG);
         ft.commitAllowingStateLoss();
     }

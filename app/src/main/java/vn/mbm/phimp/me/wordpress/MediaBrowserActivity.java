@@ -90,7 +90,6 @@ public class MediaBrowserActivity extends AppCompatActivity implements MediaGrid
     private SearchView mSearchView;
     private MenuItem mSearchMenuItem;
     private MenuItem mLogoutMenuItem;
-    private Menu mMenu;
 
     // Services
     private MediaDeleteService.MediaDeleteBinder mDeleteService;
@@ -277,7 +276,6 @@ public class MediaBrowserActivity extends AppCompatActivity implements MediaGrid
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mMenu = menu;
         getMenuInflater().inflate(R.menu.media_browser, menu);
 
         mSearchMenuItem = menu.findItem(R.id.menu_search);
@@ -298,8 +296,7 @@ public class MediaBrowserActivity extends AppCompatActivity implements MediaGrid
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void logout()
-    {
+    private void logout() {
         if (mAccountStore.hasAccessToken()) {
             Logout logout = new Logout(this ,mAccountStore);
             logout.signOutWordPressComWithConfirmation();

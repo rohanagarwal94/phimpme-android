@@ -68,6 +68,12 @@ public class MyApplication extends Application {
     AccountStore mAccountStore;
     @Inject
     SiteStore mSiteStore;
+    @Inject
+    @Named("custom-ssl")
+    RequestQueue mRequestQueue;
+    public static RequestQueue sRequestQueue;
+    @Inject FluxCImageLoader mImageLoader;
+    public static FluxCImageLoader sImageLoader;
 
     private AppComponent mAppComponent;
 
@@ -75,12 +81,6 @@ public class MyApplication extends Application {
         return mAppComponent;
     }
 
-    @Inject
-    @Named("custom-ssl")
-    RequestQueue mRequestQueue;
-    public static RequestQueue sRequestQueue;
-    @Inject FluxCImageLoader mImageLoader;
-    public static FluxCImageLoader sImageLoader;
 
     /**
      * Update site list in a background task. (WPCOM site list, and eventually self hosted multisites)
@@ -156,19 +156,7 @@ public class MyApplication extends Application {
                 md.update(signature.toByteArray());
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-    }
-
-    public void deferredInit(Activity activity) {
-
-        // Refresh account informations
-        if (mAccountStore.hasAccessToken()) {
-            mDispatcher.dispatch(AccountActionBuilder.newFetchAccountAction());
-            mDispatcher.dispatch(AccountActionBuilder.newFetchSettingsAction());
+        } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
 
         }
     }
@@ -223,6 +211,7 @@ public class MyApplication extends Application {
             File httpCacheDir = new File(context.getCacheDir(), "http");
             HttpResponseCache.install(httpCacheDir, httpCacheSize);
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -267,37 +256,37 @@ public class MyApplication extends Application {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
+            Log.d("activity created", String.valueOf(activity));
         }
 
         @Override
         public void onActivityStarted(Activity activity) {
-
+            Log.d("activity started", String.valueOf(activity));
         }
 
         @Override
         public void onActivityResumed(Activity activity) {
-
+            Log.d("activity resumed", String.valueOf(activity));
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-
+            Log.d("activity paused", String.valueOf(activity));
         }
 
         @Override
         public void onActivityStopped(Activity activity) {
-
+            Log.d("activity stopped", String.valueOf(activity));
         }
 
         @Override
         public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
+            Log.d("activity savedstate", String.valueOf(activity));
         }
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-
+            Log.d("activity destroyed", String.valueOf(activity));
         }
     }
 

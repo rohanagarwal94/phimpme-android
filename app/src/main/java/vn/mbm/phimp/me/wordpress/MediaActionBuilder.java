@@ -14,8 +14,6 @@ import org.wordpress.android.fluxc.store.MediaStore.MediaPayload;
 import org.wordpress.android.fluxc.store.MediaStore.ProgressPayload;
 
 public final class MediaActionBuilder extends ActionBuilder {
-    public MediaActionBuilder() {
-    }
 
     public static Action<MediaPayload> newPushMediaAction(MediaPayload payload) {
         return new Action(MediaAction.PUSH_MEDIA, payload);
