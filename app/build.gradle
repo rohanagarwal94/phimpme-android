@@ -85,7 +85,7 @@ dependencies {
     compile files('libs/tagsoup-1.2.1.jar')
     compile files('libs/uk.co.jasonfry.android.tools.jar')
     compile project(':viewflow')
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
+    debugCompile 'com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'javax.inject'
     }
